@@ -26,7 +26,7 @@ class NovaAutofillServiceProvider extends ServiceProvider
                 if ($shouldAutofill) {
                     if($type=="belongsTo") {
                         $this->default(
-                            $instance->{$attribute ?? $this->attribute};
+                            $instance->{$attribute ?? $this->attribute}
                         );
                     } else {
                         $this->withMeta([
