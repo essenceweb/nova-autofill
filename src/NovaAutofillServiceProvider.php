@@ -17,21 +17,21 @@ class NovaAutofillServiceProvider extends ServiceProvider
     {
         Field::macro(
             'autofill',
-            function (string $attribute = null, string $type= null) {
+            function (string $attribute = null, string $type = null) {
                 $request = app(NovaRequest::class);
 
                 $shouldAutofill = $request->isCreateOrAttachRequest()
                     && ($instance = $request->findParentModel());
 
                 if ($shouldAutofill) {
-                    if($type=="text") {
-                        $this->withMeta([
-                            'value' => $instance->{$attribute ?? $this->attribute},
-                        ]);
-                    } elseif ($type=="belongsTo") {
+                    if($type=="belongsTo") {
                         $this->default(
                             $instance->{$attribute ?? $this->attribute};
                         );
+                    } else {
+                        $this->withMeta([
+                            'value' => $instance->{$attribute ?? $this->attribute},
+                        ]);
                     }
                 }
 
